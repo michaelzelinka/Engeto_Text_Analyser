@@ -38,3 +38,64 @@ user_creds = {
 input_username = input("Username: ")
 input_password = input("Password: ")
 print(separator)
+
+if input_username not in user_creds:
+    print("unregistered user, terminating the program...")
+    exit()
+elif user_creds[input_username] != input_password:
+    print("incorrect password, terminating the program...")
+    exit()
+else: 
+    print(f"Welcome, {input_username}!")
+
+text_count = len(TEXTS)
+print(f"Analysing {text_count} texts.")
+text_analyse = input(f"Choose number between 1 and {text_count}: ")
+try:
+    choice = int(text_analyse)
+    if choice < 1 or choice > text_count:
+        print("Invalid choice, terminating program...")
+        exit()
+except ValueError: 
+    print("Invalid choice, terminating program...")
+    exit()
+
+selected_text = TEXTS[choice - 1]
+
+sum_title_w = 0
+sum_upp_w = 0 
+sum_low_w = 0
+sum_num_str = 0 
+sum_num = 0
+words = selected_text.split()
+sum_w = len(words)
+graph = {}
+
+for word in words:
+    trim_word = word.strip(".,")
+    length = len(trim_word)
+    graph[length] = graph.get(length, 0) +1
+    if trim_word.istitle():
+        sum_title_w += 1
+    if trim_word.isupper():
+        sum_upp_w += 1
+    if trim_word.islower():
+        sum_low_w += 1
+    if trim_word.isnumeric():
+        sum_num += int(trim_word)
+        sum_num_str += 1
+
+print(separator)
+print(f"There are {sum_w} words in the selected text.")
+print(f"There are {sum_title_w} titlecase words.")
+print(f"There are {sum_upp_w} uppercase words.")
+print(f"There are {sum_low_w} lowercase words.")
+print(f"There are {sum_num_str} numeric strings.")
+print(f"The sum of all the numbers {sum_num}")
+print(separator)
+print("LEN|          OCCURRENCES|  NR")
+print(separator)
+
+for length in sorted(graph):
+    count = graph[length]
+    print(f"{length}| {'*' * count} |{count}")
