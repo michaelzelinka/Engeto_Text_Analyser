@@ -26,7 +26,7 @@ TEXTS = [
     garpike and stingray are also present.'''
 ]
 
-line = "-" * 40
+separator = "-" * 40
 
 user_creds = {
   "bob": "123",
@@ -34,3 +34,7 @@ user_creds = {
   "mike": "password123",
   "liz": "pass123"
   }
+
+input_username = input("Username: ")
+input_password = input("Password: ")
+print(separator)
